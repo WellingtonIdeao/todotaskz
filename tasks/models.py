@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.urls import reverse
 
 
 class Category(models.Model):
@@ -12,6 +13,9 @@ class Category(models.Model):
     class Meta:
         ordering = ('created',)
         verbose_name_plural = 'Categories'
+
+    def get_absolute_url(self):
+        return reverse('tasks:category_detail', kwargs={'pk': self.pk})
 
     def __str__(self):
         return self.name
@@ -33,6 +37,9 @@ class Task(models.Model):
 
     class Meta:
         ordering = ['created']
+
+    def get_absolute_url(self):
+        return reverse('tasks:task_detail', kwargs={'pk': self.pk})
 
     def __str__(self):
         return self.name
