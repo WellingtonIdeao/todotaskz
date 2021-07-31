@@ -1,7 +1,11 @@
 {% extends "tasks/base.html" %}
 
-{% block title %}Category{% endblock title %}
+{% block title %}{{category.name}}{% endblock title %}
 {% block content%}
-    <h2>Category</h2>
-    <p>{{ category.name }}</p>
+    <h2>{{ category.name }}</h2>
+        <ul>
+            {% for task in category.category_tasks.all %}
+                <li><a href="{% url 'tasks:task_detail' task.pk %}">{{ task.name }}</a></li>
+            {% endfor %}
+        </ul>
 {% endblock content %}

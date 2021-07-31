@@ -2,6 +2,8 @@
 
 {% block title %}Task{% endblock title %}
 {% block content%}
-    <h2>Task</h2>
-    <p>{{ task.name }}</p>
+    <h2>{{task.name}}</h2>
+    <p>{{ task.description }}</p>
+    <p>{{ task.expire_date }}</p>
+    <p>{{ task.is_done }}</p>
 {% endblock content %}
