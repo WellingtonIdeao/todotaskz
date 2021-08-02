@@ -5,6 +5,7 @@ from ..models import Category, Task
 
 
 class CategoryListViewTests(TestCase):
+
     @classmethod
     def setUpTestData(cls):
         # Create 3 categories objects
@@ -37,6 +38,7 @@ class CategoryListViewTests(TestCase):
 
 
 class CategoryDetailViewTests(TestCase):
+
     @classmethod
     def setUpTestData(cls):
         Category.objects.create(name='FOO text')
@@ -91,7 +93,61 @@ class CategoryCreateViewTests(TestCase):
         self.assertTemplateUsed(response, template_name)
 
 
+class CategoryUpdateViewTests(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        Category.objects.create(name='FOO text')
+
+    def test_view_url_exist_at_desired_location(self):
+        url = '/tasks/category/1/edit/'
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_view_url_accessible_by_name(self):
+        url = reverse('tasks:category_update', kwargs={'pk': 1})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_view_correct_template(self):
+        template_name = 'tasks/category/registration/form.html'
+        url = reverse('tasks:category_update', kwargs={'pk': 1})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, template_name)
+
+
+class CategoryDeleteViewTests(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        Category.objects.create(name='FOO text')
+
+    def test_view_url_exist_at_desired_location(self):
+        url = '/tasks/category/1/delete/'
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_view_url_accessible_by_name(self):
+        url = reverse('tasks:category_delete', kwargs={'pk': 1})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_view_correct_template(self):
+        template_name = 'tasks/category/registration/check_delete.html'
+        url = reverse('tasks:category_delete', kwargs={'pk': 1})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, template_name)
+
+    def test_view_success_url(self):
+        url = reverse('tasks:category_delete', kwargs={'pk': 1})
+        response = self.client.post(url)
+        self.assertEqual(response.status_code, 302)
+
+
 class TaskListViewTests(TestCase):
+
     @classmethod
     def setUpTestData(cls):
         number_of_tasks = 3
@@ -127,6 +183,7 @@ class TaskListViewTests(TestCase):
 
 
 class TaskDetailViewTests(TestCase):
+
     @classmethod
     def setUpTestData(cls):
         category = Category.objects.create(name='FOO text')

@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, reverse
+from django.urls import reverse_lazy
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Category, Task
 from .forms import CategoryModelForm
 from django.utils.text import slugify
@@ -23,6 +24,19 @@ class CategoryCreateView(CreateView):
     model = Category
     form_class = CategoryModelForm
     template_name = 'tasks/category/registration/form.html'
+
+
+class CategoryUpdateView(UpdateView):
+    model = Category
+    form_class = CategoryModelForm
+    template_name = 'tasks/category/registration/form.html'
+
+
+class CategoryDeleteView(DeleteView):
+    model = Category
+    template_name = 'tasks/category/registration/check_delete.html'
+    context_object_name = 'category'
+    success_url = reverse_lazy('tasks:category_list')
 
 
 class TaskListView(ListView):

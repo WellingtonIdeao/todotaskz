@@ -1,0 +1,9 @@
+{% extends 'tasks/base.html' %}
+{% block title %}Delete Category{% endblock title %}
+{% block content %}
+    <form method="post">{% csrf_token %}
+    <p>Are you sure you want to delete "{{ category }}"?</p>
+        {{ form.as_p }}
+        <input type="submit" value="Confirm">
+    </form>
+{% endblock content %}
