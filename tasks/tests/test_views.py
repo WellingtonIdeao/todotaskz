@@ -71,6 +71,26 @@ class CategoryDetailViewTests(TestCase):
         self.assertTrue('category' in response.context)
 
 
+class CategoryCreateViewTests(TestCase):
+
+    def test_view_url_exist_at_desired_location(self):
+        url = '/tasks/category/create/'
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_view_url_accessible_by_name(self):
+        url = reverse('tasks:category_create')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_view_correct_template(self):
+        template_name = 'tasks/category/registration/form.html'
+        url = reverse('tasks:category_create')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, template_name)
+
+
 class TaskListViewTests(TestCase):
     @classmethod
     def setUpTestData(cls):
