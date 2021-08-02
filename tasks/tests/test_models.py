@@ -7,7 +7,7 @@ class CategoryModelTests(TestCase):
     @classmethod
     def setUpTestData(cls):
         name = 'FOO text'
-        Category.objects.create(name=name, slug=slugify(name))
+        Category.objects.create(name=name)
 
     def test_name_label(self):
         category = Category.objects.get(pk=1)
@@ -29,29 +29,9 @@ class CategoryModelTests(TestCase):
         is_null = category._meta.get_field('name').null
         self.assertEqual(is_null, False)
 
-    def test_slug_label(self):
+    def test_name_is_unique(self):
         category = Category.objects.get(pk=1)
-        field_name = category._meta.get_field('slug').verbose_name
-        self.assertEqual(field_name, 'slug')
-
-    def test_slug_max_length(self):
-        category = Category.objects.get(pk=1)
-        max_length = category._meta.get_field('slug').max_length
-        self.assertEqual(max_length, 50)
-
-    def test_slug_is_blank_false(self):
-        category = Category.objects.get(pk=1)
-        is_blank = category._meta.get_field('slug').blank
-        self.assertEqual(is_blank, False)
-
-    def test_slug_is_null_false(self):
-        category = Category.objects.get(pk=1)
-        is_null = category._meta.get_field('slug').null
-        self.assertEqual(is_null, False)
-
-    def test_slug_is_unique(self):
-        category = Category.objects.get(pk=1)
-        is_unique = category._meta.get_field('slug').unique
+        is_unique = category._meta.get_field('name').unique
         self.assertEqual(is_unique, True)
 
     def test_created_label(self):
@@ -130,7 +110,7 @@ class TaskModelTests(TestCase):
     @classmethod
     def setUpTestData(cls):
         name = 'FOO text'
-        category = Category.objects.create(name=name, slug=slugify(name))
+        category = Category.objects.create(name=name)
         Task.objects.create(name=name,
                             slug=slugify(name),
                             category=category

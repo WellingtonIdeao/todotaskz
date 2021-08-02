@@ -4,10 +4,9 @@ from .models import Category, Task
 
 @admin.register(Category)
 class CategoryModelAdmin(admin.ModelAdmin):
-    list_display = ('name', 'slug', 'created', 'updated')
-    prepopulated_fields = {'slug': ('name',)}
+    list_display = ('name', 'created', 'updated')
     list_filter = ('created', 'updated')
-    search_fields = ('name', 'slug')
+    search_fields = ('name',)
     ordering = ('created',)
 
 

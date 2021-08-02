@@ -10,7 +10,7 @@ class CategoryListViewTests(TestCase):
         # Create 3 categories objects
         number_of_categories = 3
         for cat_id in range(number_of_categories):
-            Category.objects.create(name='FOO text', slug=slugify('FOO text '+str(cat_id)))
+            Category.objects.create(name='FOO text '+str(cat_id))
 
     def test_view_url_exists_at_desired_location(self):
         url = '/tasks/category/'
@@ -39,7 +39,7 @@ class CategoryListViewTests(TestCase):
 class CategoryDetailViewTests(TestCase):
     @classmethod
     def setUpTestData(cls):
-        Category.objects.create(name='FOO text', slug=slugify('FOO text'))
+        Category.objects.create(name='FOO text')
 
     def test_view_url_exists_at_desired_location(self):
         url = '/tasks/category/'
@@ -75,7 +75,7 @@ class TaskListViewTests(TestCase):
     @classmethod
     def setUpTestData(cls):
         number_of_tasks = 3
-        category = Category.objects.create(name='FOO text', slug=slugify('FOO text'))
+        category = Category.objects.create(name='FOO text')
         for task_id in range(number_of_tasks):
             Task.objects.create(name='FOO text',
                                 slug=slugify('FOO text '+str(task_id)),
@@ -109,7 +109,7 @@ class TaskListViewTests(TestCase):
 class TaskDetailViewTests(TestCase):
     @classmethod
     def setUpTestData(cls):
-        category = Category.objects.create(name='FOO text', slug=slugify('FOO text'))
+        category = Category.objects.create(name='FOO text')
         Task.objects.create(name='FOO text',
                             slug=slugify('FOO text'),
                             category=category,
