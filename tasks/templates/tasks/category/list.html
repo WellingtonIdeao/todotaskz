@@ -3,9 +3,14 @@
 {% block title %}Categories{% endblock title %}
 {% block content%}
     <h2>Categories</h2>
+        <p><a href="{% url 'tasks:category_create' %}">New Category</a></p>
         <ul>
             {% for category in categories %}
-                <li><a href="{{ category.get_absolute_url }}">{{ category.name }}</a></li>
+                <li>
+                    <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+                    <a href="{% url 'tasks:category_update' category.pk %}">Edit</a>
+                    <a href="{% url 'tasks:category_delete' category.pk %}">Remover</a>
+                </li>
             {% endfor %}
         </ul>
 {% endblock content %}

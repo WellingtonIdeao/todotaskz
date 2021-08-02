@@ -30,6 +30,7 @@ class CategoryUpdateView(UpdateView):
     model = Category
     form_class = CategoryModelForm
     template_name = 'tasks/category/registration/form.html'
+    success_url = reverse_lazy('tasks:category_list')
 
 
 class CategoryDeleteView(DeleteView):
