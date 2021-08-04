@@ -112,7 +112,6 @@ class TaskModelTests(TestCase):
         name = 'FOO text'
         category = Category.objects.create(name=name)
         Task.objects.create(name=name,
-                            slug=slugify(name),
                             category=category
                             )
 
@@ -135,31 +134,6 @@ class TaskModelTests(TestCase):
         task = Task.objects.get(pk=1)
         is_null = task._meta.get_field('name').null
         self.assertEqual(is_null, False)
-
-    def test_slug_label(self):
-        task = Task.objects.get(pk=1)
-        field_name = task._meta.get_field('slug').verbose_name
-        self.assertEqual(field_name, 'slug')
-
-    def test_slug_max_length(self):
-        task = Task.objects.get(pk=1)
-        max_length = task._meta.get_field('slug').max_length
-        self.assertEqual(max_length, 50)
-
-    def test_slug_is_blank_false(self):
-        task = Task.objects.get(pk=1)
-        is_blank = task._meta.get_field('slug').blank
-        self.assertEqual(is_blank, False)
-
-    def test_slug_is_null_false(self):
-        task = Task.objects.get(pk=1)
-        is_null = task._meta.get_field('slug').null
-        self.assertEqual(is_null, False)
-
-    def test_slug_is_unique(self):
-        task = Task.objects.get(pk=1)
-        is_unique = task._meta.get_field('slug').unique
-        self.assertEqual(is_unique, True)
 
     def test_description_label(self):
         task = Task.objects.get(pk=1)

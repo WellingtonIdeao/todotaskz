@@ -154,7 +154,6 @@ class TaskListViewTests(TestCase):
         category = Category.objects.create(name='FOO text')
         for task_id in range(number_of_tasks):
             Task.objects.create(name='FOO text',
-                                slug=slugify('FOO text '+str(task_id)),
                                 category=category,
                                 )
 
@@ -188,7 +187,6 @@ class TaskDetailViewTests(TestCase):
     def setUpTestData(cls):
         category = Category.objects.create(name='FOO text')
         Task.objects.create(name='FOO text',
-                            slug=slugify('FOO text'),
                             category=category,
                             )
 

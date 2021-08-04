@@ -12,8 +12,7 @@ class CategoryModelAdmin(admin.ModelAdmin):
 
 @admin.register(Task)
 class TaskModelAdmin(admin.ModelAdmin):
-    list_display = ('name', 'slug', 'category', 'created', 'updated', 'expire_date')
-    prepopulated_fields = {'slug': ('name',)}
+    list_display = ('name', 'category', 'created', 'updated', 'expire_date')
     list_filter = ('created', 'updated', 'expire_date', 'is_done')
     search_fields = ('name', 'slug')
     ordering = ('created',)

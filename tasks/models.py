@@ -22,7 +22,6 @@ class Category(models.Model):
 
 class Task(models.Model):
     name = models.CharField(max_length=500)
-    slug = models.SlugField(max_length=50, unique=True)
     description = models.TextField(blank=True)
     category = models.ForeignKey(Category,
                                  related_name='category_tasks',

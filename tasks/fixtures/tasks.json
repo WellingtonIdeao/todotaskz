@@ -1,0 +1,59 @@
+[
+{
+  "model": "tasks.category",
+  "pk": 5,
+  "fields": {
+    "name": "category 1",
+    "created": "2021-08-04T15:04:32.703Z",
+    "updated": "2021-08-04T15:04:32.703Z"
+  }
+},
+{
+  "model": "tasks.category",
+  "pk": 6,
+  "fields": {
+    "name": "category 2",
+    "created": "2021-08-04T15:04:47.006Z",
+    "updated": "2021-08-04T15:04:47.006Z"
+  }
+},
+{
+  "model": "tasks.task",
+  "pk": 1,
+  "fields": {
+    "name": "task 1",
+    "description": "",
+    "category": 5,
+    "expire_date": "2021-08-04T15:04:52Z",
+    "created": "2021-08-04T15:05:07.114Z",
+    "updated": "2021-08-04T15:05:07.114Z",
+    "is_done": false
+  }
+},
+{
+  "model": "tasks.task",
+  "pk": 2,
+  "fields": {
+    "name": "task 2",
+    "description": "",
+    "category": 5,
+    "expire_date": "2021-08-04T15:05:14Z",
+    "created": "2021-08-04T15:05:27.499Z",
+    "updated": "2021-08-04T15:05:27.499Z",
+    "is_done": false
+  }
+},
+{
+  "model": "tasks.task",
+  "pk": 3,
+  "fields": {
+    "name": "task 3",
+    "description": "",
+    "category": 6,
+    "expire_date": "2021-08-04T15:05:32Z",
+    "created": "2021-08-04T15:05:39.901Z",
+    "updated": "2021-08-04T15:05:39.901Z",
+    "is_done": false
+  }
+}
+]
