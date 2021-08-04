@@ -27,7 +27,7 @@ class Task(models.Model):
                                  related_name='category_tasks',
                                  related_query_name='task',
                                  on_delete=models.CASCADE)
-    expire_date = models.DateTimeField(default=timezone.now)
+    expire_date = models.DateTimeField(blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 

@@ -4,7 +4,7 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Category, Task
-from .forms import CategoryModelForm
+from .forms import CategoryModelForm, TaskModelForm
 from django.utils.text import slugify
 
 
@@ -50,6 +50,27 @@ class TaskDetailView(DetailView):
     model = Task
     template_name = 'tasks/task/detail.html'
     context_object_name = 'task'
+
+
+class TaskCreateView(CreateView):
+    model = Task
+    form_class = TaskModelForm
+    template_name = 'tasks/task/registration/form.html'
+    success_url = reverse_lazy('tasks:task_list')
+
+
+class TaskUpdateView(UpdateView):
+    model = Task
+    form_class = TaskModelForm
+    template_name = 'tasks/task/registration/form.html'
+    success_url = reverse_lazy('tasks:task_list')
+
+
+class TaskDeleteView(DeleteView):
+    model = Task
+    template_name = 'tasks/task/registration/check_delete.html'
+    context_object_name = 'task'
+    success_url = reverse_lazy('tasks:task_list')
 
 
 '''def category_register(request):

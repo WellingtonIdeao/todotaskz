@@ -1,6 +1,5 @@
 from django.test import TestCase
 from django.urls import reverse
-from django.utils.text import slugify
 from ..models import Category, Task
 
 
@@ -218,4 +217,83 @@ class TaskDetailViewTests(TestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertTrue('task' in response.context)
+
+
+class TaskCreateViewTests(TestCase):
+
+    def test_view_url_exist_at_desired_location(self):
+        url = '/tasks/task/create/'
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_view_url_accessible_by_name(self):
+        url = reverse('tasks:task_create')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_view_correct_template(self):
+        template_name = 'tasks/task/registration/form.html'
+        url = reverse('tasks:task_create')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, template_name)
+
+
+class TaskUpdateViewTests(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        category = Category.objects.create(name='FOO text')
+        Task.objects.create(name='FOO text',
+                            category=category,
+                            )
+
+    def test_view_url_exist_at_desired_location(self):
+        url = '/tasks/task/1/edit/'
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_view_url_accessible_by_name(self):
+        url = reverse('tasks:task_update', kwargs={'pk': 1})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_view_correct_template(self):
+        template_name = 'tasks/task/registration/form.html'
+        url = reverse('tasks:task_update', kwargs={'pk': 1})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, template_name)
+
+
+class TaskDeleteViewTests(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        category = Category.objects.create(name='FOO text')
+        Task.objects.create(name='FOO text',
+                            category=category,
+                            )
+
+    def test_view_url_exist_at_desired_location(self):
+        url = '/tasks/task/1/delete/'
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_view_url_accessible_by_name(self):
+        url = reverse('tasks:task_delete', kwargs={'pk': 1})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_view_correct_template(self):
+        template_name = 'tasks/task/registration/check_delete.html'
+        url = reverse('tasks:task_delete', kwargs={'pk': 1})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, template_name)
+
+    def test_view_success_url(self):
+        url = reverse('tasks:task_delete', kwargs={'pk': 1})
+        response = self.client.post(url)
+        self.assertEqual(response.status_code, 302)
 

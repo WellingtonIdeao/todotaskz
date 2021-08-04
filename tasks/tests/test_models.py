@@ -215,10 +215,15 @@ class TaskModelTests(TestCase):
         is_auto_now = task._meta.get_field('expire_date').auto_now
         self.assertEqual(is_auto_now, False)
 
-    def test_expire_date_is_blank_false(self):
+    def test_expire_date_is_blank(self):
         task = Task.objects.get(pk=1)
         is_blank = task._meta.get_field('expire_date').blank
-        self.assertEqual(is_blank, False)
+        self.assertEqual(is_blank, True)
+
+    def test_expire_date_is_null(self):
+        task = Task.objects.get(pk=1)
+        is_null = task._meta.get_field('expire_date').null
+        self.assertEqual(is_null, True)
 
     def test_task_ordering(self):
         task = Task.objects.get(pk=1)
